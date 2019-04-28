@@ -148,7 +148,7 @@ def login_sucess(user_name):
         i = 0
         for chatroom in chatrooms:
             print(chatroom)
-            Button(login_success_screen, text=chatroom, height="2", width="15", command=partial(enter_chat, chatroom[0]), bg="Red", fg="white").place(x=100+i, y=500)
+            Button(login_success_screen, text=chatroom, height="2", width="15", command=partial(enter_chat, chatroom[0], user_name), bg="Red", fg="white").place(x=100+i, y=500)
             i = i+150
         # Button(login_success_screen, text="Chat Room 2", height="2", width="15", command=enter_chat, bg="green", fg="yellow").place(x=350, y=500)
         Button(login_success_screen, text="Add Chat Room", height="2", width="15", command=add_chat, bg="orange", fg="blue").place(x=600, y=500)
@@ -156,13 +156,13 @@ def login_sucess(user_name):
         Label(login_success_screen, text="Error Viewing Chatrooms", fg="red", font=("Helvetica", 11), bg="white").pack()
 
 
-def enter_chat(x):
+def enter_chat(x, name):
     # print(x)
     check, port = choose_chatroom(str(x))
     print(check)
     print(port)
     if (check):
-        string = 'python Chatroom/client_view.py ' + str(port)
+        string = 'python Chatroom/client_view.py ' + str(port) + ' ' + name
         # time.sleep(1)
         os.system(string)
     else:
