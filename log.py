@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw, ImageTk, ImageFont
 register_screen = main_screen = username = password = username_entry = None
 login_screen = username_verify = password_verify = username_login_entry = None
 login_success_screen = password_not_recog_screen = user_not_found_screen = None
-password_entry = password_login_entry = None
+password_entry = password_login_entry = add_chat_screen = delete_chat_screen = None
 
 
 # signup form
@@ -145,13 +145,17 @@ def login_sucess(user_name):
     Label(login_success_screen, text="Choose the chat room", width="300", height="2", bg="white", font=("Helvetica", 20, "bold")).pack()
     check, chatrooms = view_chatrooms()
     if (check):
-        i = 0
+        i = j = 0
         for chatroom in chatrooms:
             print(chatroom)
-            Button(login_success_screen, text=chatroom, height="2", width="15", command=partial(enter_chat, chatroom[0], user_name), bg="Red", fg="white").place(x=100+i, y=500)
+            Button(login_success_screen, text=chatroom, height="2", width="15", command=partial(enter_chat, chatroom[0], user_name), bg="Red", fg="white").place(x=100+i, y=100+j)
             i = i+150
+            if (i == 600):
+                j = j + 50
+                i = 0
         # Button(login_success_screen, text="Chat Room 2", height="2", width="15", command=enter_chat, bg="green", fg="yellow").place(x=350, y=500)
-        Button(login_success_screen, text="Add Chat Room", height="2", width="15", command=add_chat, bg="orange", fg="blue").place(x=600, y=500)
+        Button(login_success_screen, text="Add Chat Room", height="2", width="15", command=add_chat, bg="orange", fg="blue").place(x=600, y=400)
+        Button(login_success_screen, text="Delete Chat Room", height="2", width="15", command=delete_chat, bg="orange", fg="blue").place(x=600, y=500)
     else:
         Label(login_success_screen, text="Error Viewing Chatrooms", fg="red", font=("Helvetica", 11), bg="white").pack()
 
@@ -171,7 +175,59 @@ def enter_chat(x, name):
 
 
 def add_chat():
+    global add_chat_screen
+    add_chat_screen = Toplevel(login_success_screen)
+    add_chat_screen.title("Add Chat")
+    image = Image.open("logo.png")
+    background_image = ImageTk.PhotoImage(image)
+    background_label = Label(add_chat_screen, image=background_image)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    background_label.image = background_image
+    add_chat_screen.geometry("400x400")
+    # -------Open chat room page----------
+    Label(add_chat_screen, text="Add a chat room", width="300", height="2", bg="white", font=("Helvetica", 20, "bold")).pack()
+    Label(add_chat_screen, text="Chatroom Name * ", bg="white").pack()
+    chat_name_val = StringVar()
+    chat_name = Entry(add_chat_screen, textvariable=chat_name_val)
+    chat_name.pack()
+    Button(add_chat_screen, text="Add Chat Room", height="2", width="15", command=lambda: add_chat_event(chat_name_val.get()), bg="orange", fg="blue").pack()
     return
+
+
+def add_chat_event(x):
+    result = add_chatroom(x)
+    add_chat_screen.destroy()
+    #login_success_screen.refresh()
+    return
+
+
+def delete_chat():
+    global delete_chat_screen
+    delete_chat_screen = Toplevel(login_success_screen)
+    delete_chat_screen.title("Delete Chat")
+    image = Image.open("logo.png")
+    background_image = ImageTk.PhotoImage(image)
+    background_label = Label(delete_chat_screen, image=background_image)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    background_label.image = background_image
+    delete_chat_screen.geometry("400x400")
+    # -------Open chat room page----------
+    Label(delete_chat_screen, text="Delete a chat room", width="300", height="2", bg="white", font=("Helvetica", 20, "bold")).pack()
+    Label(delete_chat_screen, text="Chatroom Name * ", bg="white").pack()
+    del_name_val = StringVar()
+    del_name = Entry(delete_chat_screen, textvariable=del_name_val)
+    del_name.pack()
+    Button(delete_chat_screen, text="Delete Chat Room", height="2", width="15", command=lambda: delete_chat_event(del_name_val.get()), bg="orange", fg="blue").pack()
+    return
+
+
+def delete_chat_event(x):
+    result = delete_chatroom(x)
+    delete_chat_screen.destroy()
+    # login_success_screen.refresh()
+    return
+
+
 def password_not_recognised():
     global password_not_recog_screen
     password_not_recog_screen = Toplevel(login_screen)

@@ -1,7 +1,7 @@
 from Backend.Model import *
 chatroom_name = ""
 port_no = 1000
-
+user_name = ""
 
 # signup
 def add(username, password):
@@ -11,8 +11,10 @@ def add(username, password):
 
 # login
 def check(username, password):
+    global user_name
     check, result = DB_check(username, password)
     # print(username)
+    user_name = result
     if (check and result == username):
         print("YAY!")
         return True
@@ -20,12 +22,15 @@ def check(username, password):
 
 
 def add_chatroom(name):     # create new server and send it's port no to database
+    global user_name
     result = DB_add_chatroom(name)  # port no should be id+2000
+    print(name)
+    DB_AddAdmin(user_name, name)
     return result   # true if success, false if failed
 
 
-def delete_chatroom():  # create new server and send it's port no to database
-    result = DB_delete_chatroom(chatroom_name)
+def delete_chatroom(name):  # create new server and send it's port no to database
+    result = DB_delete_chatroom(name, user_name)
     return result
 
 

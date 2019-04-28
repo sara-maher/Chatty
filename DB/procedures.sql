@@ -18,8 +18,8 @@ SELECT * FROM user WHERE
 user.UserName = name AND
 user.Password = password$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateChatRoom` (IN `chatname` CHAR(50), IN `port` INT)  NO SQL
-INSERT INTO chatroom (Name,Port) VALUES (chatname,port)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateChatRoom` (IN `chatname` CHAR(50))  NO SQL
+INSERT INTO chatroom (Name) VALUES (chatname)$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ExitChatRoom` (IN `userName` CHAR(50), IN `roomID` INT)  NO SQL
 DELETE FROM userchatroom WHERE
