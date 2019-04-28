@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2019 at 10:05 AM
+-- Generation Time: Apr 28, 2019 at 10:31 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.0.25
 
@@ -18,11 +18,9 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `chatroom`
---
 
 
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `chatroom`
@@ -49,8 +47,6 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`UserName`, `Password`) VALUES
-('sara', 'sara');
 
 -- --------------------------------------------------------
 
