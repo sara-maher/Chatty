@@ -9,9 +9,14 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `AddMember` (IN `userName` CHAR(50), IN `roomID` INT)  NO SQL
 INSERT INTO userchatroom(UserName,RoomID) VALUES (userName,roomID)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AddUser` (IN `name` CHAR(50), IN `pass` CHAR(50))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AddUser` (IN `name` CHAR(50), IN `password` CHAR(50))  NO SQL
 INSERT INTO user(UserName, Password)
-VALUES(name, pass)$$
+VALUES(name, password)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SelectUser` (IN `name` CHAR(50), IN `password` CHAR(50))  NO SQL
+SELECT * FROM user WHERE
+user.UserName = name AND
+user.Password = password$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateChatRoom` (IN `chatname` CHAR(50), IN `port` INT)  NO SQL
 INSERT INTO chatroom (Name,Port) VALUES (chatname,port)$$

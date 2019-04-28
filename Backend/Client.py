@@ -1,10 +1,10 @@
 import socket
 import select
-import errno #match error codes
+import errno     # match error codes
 import sys
-#1.tells serever username
-#2.infinite loop if client has message
-#receive msg from server
+# 1.tells serever username
+# 2.infinite loop if client has message
+# receive msg from server
 def Client(PORT):
     HEADER_LENGTH = 10
     IP =socket.gethostname()
