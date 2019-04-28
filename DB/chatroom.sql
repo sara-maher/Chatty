@@ -27,7 +27,6 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `chatroom` (
-  `ID` int(11) NOT NULL,
   `Name` char(50) COLLATE utf8_bin NOT NULL,
   `Port` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -67,8 +66,8 @@ CREATE TABLE `userchatroom` (
 -- Indexes for table `chatroom`
 --
 ALTER TABLE `chatroom`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `ID` (`ID`);
+  ADD PRIMARY KEY (`Port`),
+  ADD UNIQUE KEY `Port` (`Port`);
 
 --
 -- Indexes for table `user`
@@ -92,7 +91,7 @@ ALTER TABLE `userchatroom`
 -- AUTO_INCREMENT for table `chatroom`
 --
 ALTER TABLE `chatroom`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Port` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -103,7 +102,7 @@ ALTER TABLE `chatroom`
 --
 ALTER TABLE `userchatroom`
   ADD CONSTRAINT `userchatroom_ibfk_1` FOREIGN KEY (`UserName`) REFERENCES `user` (`UserName`),
-  ADD CONSTRAINT `userchatroom_ibfk_2` FOREIGN KEY (`RoomID`) REFERENCES `chatroom` (`ID`);
+  ADD CONSTRAINT `userchatroom_ibfk_2` FOREIGN KEY (`RoomID`) REFERENCES `chatroom` (`Port`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

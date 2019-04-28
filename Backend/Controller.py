@@ -2,33 +2,43 @@ from Backend.Model import *
 chatroom_name = ""
 port_no = 1000
 
-#signup
+
+# signup
 def add(username, password):
     result = DB_add(username, password)
     return result   # true if success, false if failed
 
-#login
+
+# login
 def check(username, password):
     check, result = DB_check(username, password)
-    print(username)
+    # print(username)
     if (check and result == username):
         print("YAY!")
         return True
     return False
 
-def add_chatroom(name): #create new server and send it's port no to database
-    result = DB_add_chatroom(name)  #port no should be id+2000
-    return result #true if success, false if failed
 
-def delete_chatroom(): #create new server and send it's port no to database
+def add_chatroom(name):     # create new server and send it's port no to database
+    result = DB_add_chatroom(name)  # port no should be id+2000
+    return result   # true if success, false if failed
+
+
+def delete_chatroom():  # create new server and send it's port no to database
     result = DB_delete_chatroom(chatroom_name)
     return result
-def choose_chatroom(name): #get the port no from the GUI and run the server with that port no.
-    chatroom_name, port_no = DB_choose_chatroom(mail,password)
-    return result
-
-def request_list_of_chatrooms(): #get list from database and send it to the GUI
-    result = DB_show_chatrooms()
-    return result
 
 
+# view all chatrooms
+def view_chatrooms():
+    return DB_view_chatrooms()
+
+
+# select a chatroom to enter
+def choose_chatroom(name):  # get the name from the GUI and port no. from db
+    global chatroom_name
+    global port_no
+    chatroom_name = name
+    check, port_no = DB_choose_chatroom(name)
+    port_no += 5000
+    return check, port_no

@@ -1,6 +1,8 @@
 import tkinter
 from tkinter import *
+import time
 import os
+from functools import partial
 from Backend.Controller import *
 # import client
 from PIL import Image, ImageDraw, ImageTk, ImageFont
@@ -127,6 +129,7 @@ def login_verify():
         user_not_found()
     """
 
+
 # Designing popup for login success
 def login_sucess(user_name):
     global login_success_screen
@@ -140,16 +143,35 @@ def login_sucess(user_name):
     login_success_screen.geometry("800x600")
     # -------Open chat room page----------
     Label(login_success_screen, text="Choose the chat room", width="300", height="2", bg="white", font=("Helvetica", 20, "bold")).pack()
-    Button(login_success_screen, text="Chat Room 1", height="2", width="15", command=enter_chat, bg="Red", fg="white").place(x=100, y=500)
-    Button(login_success_screen, text="Chat Room 2", height="2", width="15", command=enter_chat, bg="green", fg="yellow").place(x=350, y=500)
-    Button(login_success_screen, text="Chat Room 3", height="2", width="15", command=enter_chat, bg="orange", fg="blue").place(x=600, y=500)
+    check, chatrooms = view_chatrooms()
+    if (check):
+        i = 0
+        for chatroom in chatrooms:
+            print(chatroom)
+            Button(login_success_screen, text=chatroom, height="2", width="15", command=partial(enter_chat, chatroom[0]), bg="Red", fg="white").place(x=100+i, y=500)
+            i = i+150
+        # Button(login_success_screen, text="Chat Room 2", height="2", width="15", command=enter_chat, bg="green", fg="yellow").place(x=350, y=500)
+        Button(login_success_screen, text="Add Chat Room", height="2", width="15", command=add_chat, bg="orange", fg="blue").place(x=600, y=500)
+    else:
+        Label(login_success_screen, text="Error Viewing Chatrooms", fg="red", font=("Helvetica", 11), bg="white").pack()
 
 
 def enter_chat(x):
-    # os.system('python client.py')
+    # print(x)
+    check, port = choose_chatroom(str(x))
+    print(check)
+    print(port)
+    if (check):
+        string = 'python Chatroom/client_view.py ' + str(port)
+        # time.sleep(1)
+        os.system(string)
+    else:
+        Label(login_success_screen, text="Error Entering Chatroom", fg="red", font=("Helvetica", 11), bg="white").pack()
     return
 
 
+def add_chat():
+    return
 def password_not_recognised():
     global password_not_recog_screen
     password_not_recog_screen = Toplevel(login_screen)

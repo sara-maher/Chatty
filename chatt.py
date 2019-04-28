@@ -10,7 +10,8 @@ from log import *
 def main_account_screen():
     global main_screen
     main_screen = Tk()
-    opening(main_screen)
+    #opening(main_screen)
+    login_sucess("sgga")
     main_screen.mainloop()
 
 main_account_screen()
