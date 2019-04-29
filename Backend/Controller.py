@@ -14,8 +14,11 @@ def check(username, password):
     global user_name
     check, result = DB_check(username, password)
     # print(username)
-    user_name = result
-    if (check and result == username):
+    # print(result)
+    user_name = result[0]
+    if (result is None):
+        return False
+    if (check and result[0] == username):
         print("YAY!")
         return True
     return False

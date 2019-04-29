@@ -166,7 +166,8 @@ def enter_chat(x, name):
     print(check)
     print(port)
     if (check):
-        string = 'python Chatroom/client_view.py ' + str(port) + ' ' + name
+        #string = 'python Chatroom/server_view.py ' + str(port)
+        string = 'python Chatroom/client_view.py ' + name +' '+ str(port) 
         # time.sleep(1)
         os.system(string)
     else:

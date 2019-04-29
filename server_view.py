@@ -2,12 +2,13 @@
 
 from socket import AF_INET, socket, SOCK_STREAM
 from threading import Thread
+import sys
 
 clients = {}
 addresses = {}
 
 HOST = "127.0.0.1"
-PORT = 5000
+PORT = int(sys.argv[1])
 BUFSIZ = 1024
 ADDR = (HOST, PORT)
 SOCK = socket(AF_INET, SOCK_STREAM)

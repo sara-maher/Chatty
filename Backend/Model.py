@@ -39,9 +39,12 @@ def DB_check(name, password):
                                              user='root',
                                              password='')
         cursor = mySQL_conn.cursor()
-        result = cursor.callproc('SelectUser', [name, password])
+        sql = "SELECT * FROM user WHERE userName = %s AND password= %s"
+        data = (name, password)
+        cursor.execute(sql, data)
+        result = cursor.fetchone()
         res = True
-        # print(result)
+        print(result)
     except mysql.connector.Error as error:
         print("Failed to execute stored procedure: {}".format(error))
         res = False
@@ -51,7 +54,7 @@ def DB_check(name, password):
             cursor.close()
             mySQL_conn.close()
             print("connection is closed")
-    return res, result[0]
+    return res, result
 
 
 # add chatroom
@@ -84,6 +87,8 @@ def DB_add_chatroom(chatname):
 #add admin to chatroom
 def DB_AddAdmin(userName, chat):
     res, roomID = DB_choose_chatroom(chat)
+    print(userName)
+    print(roomID)
     try:
         mySQL_conn = mysql.connector.connect(host='localhost',
                                              database='chatroom',
