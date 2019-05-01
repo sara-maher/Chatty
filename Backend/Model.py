@@ -128,9 +128,10 @@ def DB_view_chatrooms():
         print("HERE")
         print(result)
         """
-        sql = "SELECT name FROM chatroom"
-        cursor.execute(sql)
+        sql = "SELECT * FROM chatroom"
+        cursor.execute(sql, [ ])
         result = cursor.fetchall()
+        print(result)
         res = True
     except mysql.connector.Error as error:
         print("Failed to execute stored procedure: {}".format(error))
@@ -238,3 +239,4 @@ def DB_view_admin(_id):
             print("connection is closed")
     #print(result)
     return res, result[0]
+DB_view_chatrooms()
